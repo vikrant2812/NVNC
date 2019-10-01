@@ -590,10 +590,9 @@ namespace NVNC
                 foreach (QuadNode iter in list)
                 {
                     Trace.WriteLine(iter.ToString());
-                    EncodedRectangle localRect = factory.Build(iter, GetPreferredEncoding());
-                    localRect.Encode();
-
-                    rectangles.Add(localRect);
+                    EncodedRectangle localRect = factory.Build(new Rectangle2(x,y,width, height), GetPreferredEncoding());
+                     localRect.Encode();
+                        rectangles.Add(localRect);
                 }
                 Trace.WriteLine("Encoding took: " + tip.Elapsed);
             }
