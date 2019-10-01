@@ -177,7 +177,7 @@ namespace NVNC.Utils.ScreenTree
             }
         }
 
-        public void GenerateChildren()
+public void GenerateChildren()
         {
             int westX = Bounds.X;   //Keep X and Y just in case, needed on client side
             int westY = Bounds.Y;
@@ -190,8 +190,7 @@ namespace NVNC.Utils.ScreenTree
             int eastHeight = Bounds.Height - westHeight;
 
             Rectangle2 nw = new Rectangle2(westX, westY, westWidth, westHeight);
-            int[] nwd = PixelGrabber.CopyPixels(NodeData, Bounds.Width, 0, 0, westWidth, westHeight);
-            childrenData[(int)Direction.NW] = nwd;//NodeData;
+            childrenData[(int)Direction.NW] = PixelGrabber.CopyPixels(NodeData, Bounds.Width, 0, 0, westWidth, westHeight);
             childrenRect[(int)Direction.NW] = nw;
 
             int parentWidth = Bounds.Width;
@@ -232,12 +231,12 @@ namespace NVNC.Utils.ScreenTree
             Trace.WriteLine("My end: " + --p);
 
 
-            Rectangle2 sw = new Rectangle2(westX, westY + westHeight, westWidth, westHeight);
-            childrenData[(int)Direction.SW] = PixelGrabber.CopyPixels(NodeData, Bounds.Width, 0, 0 + westHeight, westWidth, westHeight);
+            Rectangle2 sw = new Rectangle2(westX, westY + westHeight, westWidth, eastHeight);
+            childrenData[(int)Direction.SW] = PixelGrabber.CopyPixels(NodeData, Bounds.Width, 0, westHeight, westWidth, eastHeight);
             childrenRect[(int)Direction.SW] = sw;
 
-            Rectangle2 se = new Rectangle2(eastX, eastY + eastHeight, eastWidth, eastHeight);
-            childrenData[(int)Direction.SE] = PixelGrabber.CopyPixels(NodeData, Bounds.Width, westWidth, 0 + eastHeight, eastWidth, eastHeight);
+            Rectangle2 se = new Rectangle2(eastX, eastY + westHeight, eastWidth, eastHeight);
+            childrenData[(int)Direction.SE] = PixelGrabber.CopyPixels(NodeData, Bounds.Width, westWidth, westHeight, eastWidth, eastHeight);
             childrenRect[(int)Direction.SE] = se;
         }
         public static QuadNode EmptyNode()
